@@ -1,0 +1,27 @@
+{
+  "name": "my-farm",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.6"
+  },
+  "dependencies": {
+    "ethers": "^6.11.1",
+    "phaser": "^3.80.1",
+    "phaser3-rex-plugins": "^1.80.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -1,0 +1,88 @@
+import { Scene } from 'phaser'
+import { TreeObject } from '../objects/tree';
+import { CowObject } from '../objects/cow';
+export default class RootScene extends Scene {
+    public layer?: Phaser.Tilemaps.TilemapLayer
+    public map?: Phaser.Tilemaps.Tilemap
+    public controls?: Phaser.Cameras.Controls.SmoothedKeyControl
+    public tree?: TreeObject
+    public cow?: CowObject
+    public gameLayer?: Phaser.GameObjects.Layer
+    rexUI: any;
+    constructor() {
+        super({ key: 'root-scence'});
+    }
+    async preload() {
+        this.load.tilemapTiledJSON('bg-farm', '/images/bg-farm.tmj')
+        this.load.image('ground', '/images/ground.png')
+        this.load.image('tree', '/images/tree.png')
+        this.load.image('fences', '/images/fences.png')
+        this.load.spritesheet('cow', '/images/cow.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        })
+
+    }
+    create() {
+        this.gameLayer = this.add.layer()
+        this.createObjects()
+        this.createUI()
+    }
+    
+    createObjects() {
+        if (!this.gameLayer) {
+            return
+        }
+        this.map = this.make.tilemap({ key: 'bg-farm' });
+        const ground = this.map.addTilesetImage('ground');
+        const fences = this.map.addTilesetImage('fences');
+        if (!ground || !fences) {
+            console.warn('no ground')
+            return
+        }
+        const groundLayer = this.map.createLayer(0, [ground], 0, 0);
+        const fencesLayer = this.map.createLayer(1, [fences], 0, 0);
+        groundLayer && this.gameLayer.add(groundLayer);
+        fencesLayer && this.gameLayer.add(fencesLayer);
+        const cursors = this.input.keyboard?.createCursorKeys();
+        if (cursors) {
+            const controlConfig = {
+                camera: this.cameras.main,
+                left: cursors.left,
+                right: cursors.right,
+                up: cursors.up,
+                down: cursors.down,
+                acceleration: 0.04,
+                drag: 0.0005,
+                maxSpeed: 0.7
+            };
+            this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+
+            if (this.layer) {
+                this.cameras.main.setBounds(0, 0, this.layer.width, this.layer.height);
+            }
+
+        }
+        this.cameras.main.zoom = 1.5;
+        const centerX = this.renderer.width / 2 - this.map.widthInPixels / 2;
+        const centerY = this.renderer.height / 2 - this.map.heightInPixels / 2;
+
+        this.cameras.main.scrollX = -centerX;
+        this.cameras.main.scrollY = -centerY;
+
+        this.tree = new TreeObject(this, this.map.widthInPixels / 2 + 50, this.map.heightInPixels / 2 + 50);
+        this.gameLayer.add(this.tree);
+        this.cow = new CowObject(this, this.map.tileWidth * 9, this.map.tileHeight * 13);
+        this.gameLayer.add(this.cow);
+    }
+    createUI() {
+        
+    }
+    update(_time: number, delta: number): void {
+        if (this.controls) {
+            this.controls.update(delta);
+        }
+        if (this.tree) this.tree.update();
+        if (this.cow) this.cow.update();
+    }
+}
