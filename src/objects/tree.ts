@@ -13,6 +13,7 @@ export class TreeObject extends Phaser.GameObjects.Container {
         this.createFruits();
         this.tree.setInteractive({
             cursor: 'pointer',
+            inputEnabled: true,
             hitArea: new Phaser.Geom.Rectangle(36, 0, 50, 50)
         }).on('pointerdown',this.pointerdown.bind(this))
     }

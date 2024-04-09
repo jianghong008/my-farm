@@ -30,7 +30,16 @@ function main() {
     backgroundColor: 0xfbaf5d,
   })
 
-  const ui = createRoot(document.getElementById('ui')!)
+  const uiDom = document.getElementById('ui')
+  uiDom?.addEventListener('mousedown',(e: MouseEvent) => {
+    e.stopPropagation()
+  })
+
+  uiDom?.addEventListener('touchstart',(e: TouchEvent) => {
+    e.stopPropagation()
+  })
+
+  const ui = createRoot(uiDom!)
   ui.render(<React.StrictMode>
     <MainUI />
   </React.StrictMode>)

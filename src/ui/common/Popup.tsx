@@ -16,7 +16,8 @@ export function Popup(props: Props) {
     const stopHandle = (e: any) => {
         e.stopPropagation()
     }
-    const closePoup = () => {
+    const closePoup = (e:any) => {
+        e.stopPropagation()
         if (props.loading) {
             return
         }

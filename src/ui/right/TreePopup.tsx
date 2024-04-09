@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Popup } from "../common/Popup"
 import { UserContext } from "../../data/user";
-import { formatUnits } from "ethers"
 import { MessageBox } from "../common/MessageBox"
 import { Channel, ChannelMsgType } from "../../utils/channel"
 import { GameContract } from "../../utils/game";
@@ -13,7 +12,6 @@ interface CowProps {
 export function TreePopup(props: CowProps) {
     const { data } = useContext(UserContext)
     const [fruits, setFruits] = useState(0)
-    const [gas, setGas] = useState('0')
     const [treePopup, setTreePopup] = useState({
         open: false,
         type: 'CLAIM' as TreePopupType
@@ -76,11 +74,8 @@ export function TreePopup(props: CowProps) {
     const showFertilizerPopup = async () => {
         treePopup.open = true
         setTreePopup(treePopup)
-        setLoading(true)
-        const curGas = await GameContract.contract.claimManure.estimateGas()
         getFruits()
-        setGas(formatUnits(curGas, 'gwei'))
-        setLoading(false)
+        console.log(121)
     }
 
     const getFruits = async () => {
@@ -111,21 +106,16 @@ export function TreePopup(props: CowProps) {
             <span
                 onClick={() => { setTreePopup({ ...treePopup, type: 'CLAIM' }) }} className={`com-btn ${treePopup.type === 'CLAIM' ? 'border-b-2' : ''}`}>Claim</span>
             <span
-                onClick={() => { setTreePopup({ ...treePopup, type: 'FEED' }) }} className={`com-btn ${treePopup.type === 'FEED' ? 'border-b-2' : ''}`}>Feed</span>
+                onClick={() => { setTreePopup({ ...treePopup, type: 'FEED' }) }} className={`com-btn ${treePopup.type === 'FEED' ? 'border-b-2' : ''}`}>Manure</span>
         </h3>
         {
             treePopup.type === 'CLAIM' ? <p className=" text-sm">
                 <span>fruits: </span>
                 <span>{fruits}</span>
             </p> : <p className=" text-sm">
-                <span>fertilizer: </span>
+                <span>manure: </span>
                 <span>{getClaimedFertilizer()}</span>
             </p>
         }
-
-        <p className=" text-xs text-[#d2d2d2]">
-            <span>gas: </span>
-            <span>{gas}</span>
-        </p>
     </Popup>
 }

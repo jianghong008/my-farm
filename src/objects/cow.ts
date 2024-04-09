@@ -9,7 +9,7 @@ export class CowObject extends Phaser.GameObjects.Sprite{
         this.createAnimation();
         this.setAction('idl');
         this.timer = setInterval(this.randomAction.bind(this), 3000)
-        this.setInteractive({ cursor: 'pointer' }).on('pointerdown',this.pointerdown.bind(this))
+        this.setInteractive({ cursor: 'pointer',inputEnabled: true }).on('pointerdown',this.pointerdown.bind(this))
     }
     pointerdown(e:Phaser.Input.Pointer) {
         Channel.Instance.post(e, ChannelMsgType.ClaimFertilizerPopup)

@@ -20,7 +20,12 @@ export class Channel {
         if (!this.listener.has(t)) {
             this.listener.set(t, [fn])
         }else{
-            this.listener.get(t)?.push(fn)
+            const event = this.listener.get(t)
+            const has = event?.findIndex((item) => { item == fn }) == -1
+            console.log(has)
+            if (has) {
+                event?.push(fn)
+            }
         } 
     }
 

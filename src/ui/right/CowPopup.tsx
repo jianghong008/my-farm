@@ -1,19 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { Popup } from "../common/Popup"
 import { UserContext } from "../../data/user";
-import { formatUnits } from "ethers"
 import { MessageBox } from "../common/MessageBox"
 import { Channel, ChannelMsgType } from "../../utils/channel"
 import { GameContract } from "../../utils/game";
 import { Wallet } from "../../utils/wallet";
 type CowPopupType = 'CLAIM' | 'FEED'
 interface CowProps {
-    loadInfo:()=>Promise<void>
+    loadInfo: () => Promise<void>
 }
-export function CowPopup(props:CowProps) {
+export function CowPopup(props: CowProps) {
     const { data } = useContext(UserContext)
     const [fertilizer, setFertilizer] = useState(0)
-    const [gas, setGas] = useState('0')
     const [cowPopup, setCowPopup] = useState({
         open: false,
         type: 'CLAIM' as CowPopupType
@@ -76,11 +74,8 @@ export function CowPopup(props:CowProps) {
     const showFertilizerPopup = async () => {
         cowPopup.open = true
         setCowPopup(cowPopup)
-        setLoading(true)
-        const curGas = await GameContract.contract.claimManure.estimateGas()
         getFertilizer()
-        setGas(formatUnits(curGas, 'gwei'))
-        setLoading(false)
+        
     }
 
     const getFertilizer = async () => {
@@ -91,9 +86,9 @@ export function CowPopup(props:CowProps) {
                 ? (nowTime - info.cow.cowFeedingTime * 1)
                 : GameContract.cowFeeding
         );
-        const total = (workTime *
-            Wallet.formatBigNumber(info.cow.cow) +
-            Wallet.formatBigNumber(info.cow.cowStore)) - Wallet.formatBigNumber(info.cow.cowClaimLatest)
+        const total = Wallet.formatNumber(workTime *
+            Wallet.formatBigNumber(info.cow.cow, 4),4) +
+            Wallet.formatBigNumber(info.cow.cowStore, 4) - Wallet.formatBigNumber(info.cow.cowClaimLatest, 4)
         setFertilizer(Wallet.formatNumber(total))
     }
 
@@ -122,10 +117,5 @@ export function CowPopup(props:CowProps) {
                 <span>{getClaimedFruits()}</span>
             </p>
         }
-
-        <p className=" text-xs text-[#d2d2d2]">
-            <span>gas: </span>
-            <span>{gas}</span>
-        </p>
     </Popup>
 }
