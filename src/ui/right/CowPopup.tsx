@@ -73,9 +73,8 @@ export function CowPopup(props: CowProps) {
 
     const showFertilizerPopup = async () => {
         cowPopup.open = true
-        setCowPopup(cowPopup)
+        setCowPopup({...cowPopup})
         getFertilizer()
-        
     }
 
     const getFertilizer = async () => {
@@ -96,9 +95,7 @@ export function CowPopup(props: CowProps) {
         if (!data.user.cow) {
             return
         }
-        Channel.Instance.onMessage(ChannelMsgType.ClaimFertilizerPopup, () => {
-            showFertilizerPopup()
-        })
+        Channel.Instance.onMessage(ChannelMsgType.ClaimFertilizerPopup, showFertilizerPopup)
     }, [])
 
     return <Popup open={cowPopup.open} loading={loading} showBtn={true} close={() => { setCowPopup({ ...cowPopup, open: false }); }} callback={cowCallback}>

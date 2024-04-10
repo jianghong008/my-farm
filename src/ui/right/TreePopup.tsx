@@ -71,11 +71,11 @@ export function TreePopup(props: CowProps) {
         }
     }
 
-    const showFertilizerPopup = async () => {
+    const showFruitsPopup = async () => {
         treePopup.open = true
-        setTreePopup(treePopup)
+        setTreePopup({...treePopup})
         getFruits()
-        console.log(121)
+        
     }
 
     const getFruits = async () => {
@@ -96,9 +96,7 @@ export function TreePopup(props: CowProps) {
         if (!data.user.cow) {
             return
         }
-        Channel.Instance.onMessage(ChannelMsgType.CalimFruitsPopup, () => {
-            showFertilizerPopup()
-        })
+        Channel.Instance.onMessage(ChannelMsgType.CalimFruitsPopup, showFruitsPopup)
     }, [])
 
     return <Popup open={treePopup.open} loading={loading} showBtn={true} close={() => { setTreePopup({ ...treePopup, open: false }); }} callback={cowCallback}>

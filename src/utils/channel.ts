@@ -11,22 +11,18 @@ export class Channel {
         }
         return Channel._instance
     }
-    private listener = new Map<ChannelMsgType, Function[]>()
+    private listener = new Map<ChannelMsgType, Map<string, Function>>()
     public post(data: any, t: ChannelMsgType) {
         this.listener.get(t)?.forEach((fn) => { fn(data) })
     }
 
     public onMessage(t: ChannelMsgType, fn: Function) {
-        if (!this.listener.has(t)) {
-            this.listener.set(t, [fn])
+        const event = this.listener.get(t)
+        if (!event) {
+            this.listener.set(t, new Map<string, Function>().set(fn.name, fn))
         }else{
-            const event = this.listener.get(t)
-            const has = event?.findIndex((item) => { item == fn }) == -1
-            console.log(has)
-            if (has) {
-                event?.push(fn)
-            }
-        } 
+            event.set(fn.name, fn)
+        }
     }
 
     public clear() {
