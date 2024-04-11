@@ -33,14 +33,17 @@ export class GameContract {
     }
 
     static async claimFruits() {
-        return await GameContract.contract.claimFruits()
+        const tx = await GameContract.contract.claimFruits()
+        await tx.wait()
     }
 
     static async manureTree() {
-        return await GameContract.contract.manureTree()
+        const tx = await GameContract.contract.manureTree()
+        await tx.wait()
     }
 
     static async feedCow() {
-        return await GameContract.contract.feedCow()
+        const tx = await GameContract.contract.feedCow()
+        await tx.wait()
     }
 }
