@@ -39,6 +39,117 @@
 			},
 			{
 				"inputs": [],
+				"name": "gameConfig",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "initCow",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "initTree",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "cowFeeding",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "treeFeeding",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "cowConsume",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "treeConsume",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "scaleUnit",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getConfig",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "initCow",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "initTree",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "cowFeeding",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "treeFeeding",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "cowConsume",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "treeConsume",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "scaleUnit",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct GameConfig",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getConsumes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getFruits",
 				"outputs": [
 					{
@@ -112,6 +223,56 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "refreshConfig",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "initCow",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "initTree",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "cowFeeding",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "treeFeeding",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "cowConsume",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "treeConsume",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "scaleUnit",
+						"type": "uint256"
+					}
+				],
+				"name": "setConfig",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -166,19 +327,19 @@
 			]
 		},
 		"Game.sol": {
-			"keccak256": "0xba4b4908d1bfc17dc94c78e89664ae9bcaaee51dc180cf70a18fadc83a87ac37",
+			"keccak256": "0xff19f398fcd47d703bafe9bdbd0b8e25ad8b63d7f157d487a9908ab61719dc56",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://15896c4d7900f91a36aa539d19f9a5e4f9969165756af335aebcf7696d918dce",
-				"dweb:/ipfs/QmV3SX9aH774Ct6jPSn6a4rcjJfJprYvPRspSn5V6BEtFv"
+				"bzz-raw://df489ec1802fa9e2dc656148e0c93dfc6b9ca744a1d603dd7d4f7ab09696b6cd",
+				"dweb:/ipfs/QmS3CWtccfX9H2KENFm6Xsgq1iKHSdDWcYb6efNHwWSBe7"
 			]
 		},
 		"Storage.sol": {
-			"keccak256": "0xcc9696914356a5bc041195890b7e3ddd0b0407cd7e8b75f3496f277d7708e69c",
+			"keccak256": "0x2e77e4365cfbf1639f81e29479af298272bb2f2bdb904a536c59b8440f7bc6c8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c9e2b6f96ae4030c6e380bba8d5d46151de8a507920b316c287739f3df1d5f54",
-				"dweb:/ipfs/QmSMnkeH6YmWEUB8dxAbcN7G1P2t7WPMzGrXUEsX7SgJNx"
+				"bzz-raw://4cfa6d66c3776ee4915a10ad1a3b20d26b9758336b7809a3c1b52ccadbf7c4ad",
+				"dweb:/ipfs/QmZ37zGVSogSQ73Vx576SrNDzHn4oVMQYWTpwhW5Zxh3qo"
 			]
 		}
 	},

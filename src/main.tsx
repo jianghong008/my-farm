@@ -27,7 +27,7 @@ function main() {
       pixelArt: true,
       antialias: false,
     },
-    backgroundColor: 0xfbaf5d,
+    backgroundColor: 0x8cbfc2,
   })
 
   const uiDom = document.getElementById('ui')

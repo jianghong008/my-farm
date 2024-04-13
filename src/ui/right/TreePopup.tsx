@@ -48,7 +48,7 @@ export function TreePopup(props: CowProps) {
             MessageBox.success('claim success')
         } catch (error) {
             setLoading(false)
-            MessageBox.error('claim failed')
+            MessageBox.error(error)
         }
     }
 
@@ -67,7 +67,7 @@ export function TreePopup(props: CowProps) {
             MessageBox.success('feed success')
         } catch (error) {
             setLoading(false)
-            MessageBox.error('feed failed')
+            MessageBox.error(error)
         }
     }
 
@@ -76,6 +76,10 @@ export function TreePopup(props: CowProps) {
         setTreePopup({...treePopup})
         getFruits()
         
+    }
+
+    const getConsumes = () => {
+        return Wallet.formatBigNumber(data.consumes.tree)
     }
 
     const getFruits = async () => {
@@ -100,19 +104,21 @@ export function TreePopup(props: CowProps) {
     }, [])
 
     return <Popup open={treePopup.open} loading={loading} showBtn={true} close={() => { setTreePopup({ ...treePopup, open: false }); }} callback={cowCallback}>
-        <h3 className=" text-2xl mb-4 font-bold flex gap-2">
+        <h2 className=" text-2xl font-bold">Tree</h2>
+        <h3 className=" mb-4 flex gap-2">
             <span
                 onClick={() => { setTreePopup({ ...treePopup, type: 'CLAIM' }) }} className={`com-btn ${treePopup.type === 'CLAIM' ? 'border-b-2' : ''}`}>Claim</span>
             <span
                 onClick={() => { setTreePopup({ ...treePopup, type: 'FEED' }) }} className={`com-btn ${treePopup.type === 'FEED' ? 'border-b-2' : ''}`}>Manure</span>
         </h3>
         {
-            treePopup.type === 'CLAIM' ? <p className=" text-sm">
-                <span>fruits: </span>
+            treePopup.type === 'CLAIM' ? <p className=" text-sm flex items-center gap-1 justify-center">
+                <img className="w-4 h-4" src="/images/ui/fruits.svg" alt="fertilizer" />
                 <span>{fruits}</span>
-            </p> : <p className=" text-sm">
-                <span>manure: </span>
-                <span>{getClaimedFertilizer()}</span>
+            </p> : <p className=" text-sm flex items-center gap-1 justify-center">
+                <span>fee:</span>
+                <span>{getConsumes()}</span>
+                <img className="w-6 h-6" src="/images/ui/fertilizer.svg" alt="fertilizer" />
             </p>
         }
     </Popup>

@@ -33,7 +33,11 @@ export function initUser():UserData {
                 treeClaimLatest: '0'
             }
         },
-        init: false
+        init: false,
+        consumes: {
+            cow: '0',
+            tree: '0'
+        }
     }
 }
 

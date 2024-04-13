@@ -3,6 +3,7 @@ import { Wallet } from "../utils/wallet"
 import { UserContext } from "../data/user"
 import { GameContract } from "../utils/game"
 import { Popup } from "./common/Popup"
+import { MessageBox } from "./common/MessageBox"
 export function Connect() {
     const { data, setData } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
@@ -12,21 +13,55 @@ export function Connect() {
         data.isConnect = true
         localStorage.setItem('connectAddress', address)
         await GameContract.loadContract()
+        let has = false
         try {
             await loadInfo()
+            has = true
         } catch (error) {
+            has = false
+        }
+        if (has) {
+            return
+        }
+        try {
             await GameContract.newUser()
             await loadInfo()
+        } catch (error) {
+            MessageBox.error(error)
+            disConnect()
         }
     }
     const loadInfo = async () => {
         setLoading(true)
         const info = await GameContract.getInfo()
+        const consumes = await GameContract.getConsumes()
+        data.consumes.cow = consumes[0]
+        data.consumes.tree = consumes[1]
         setLoading(false)
         data.user = info
         setData({ ...data })
-        console.log('info', info)
+        console.log(info)
     }
+    const disConnect = async () => {
+        await Wallet.disconnectWallet()
+        localStorage.removeItem('connectAddress')
+        data.address = ''
+        data.isConnect = false
+        data.user.createTime = 0
+        setData({ ...data })
+    }
+
+    const init = async () => {
+        try {
+            await GameContract.loadContract()
+            await loadInfo()
+        } catch (error) {
+            MessageBox.error(error)
+            disConnect()
+            console.log(121)
+        }
+    }
+
     useEffect(() => {
         if (data.isConnect) {
             return
@@ -36,14 +71,12 @@ export function Connect() {
         if (address) {
             data.address = address
             data.isConnect = true
-            GameContract.loadContract().then(() => {
-                loadInfo()
-            })
+            init()
 
         }
     }, [])
     return <Popup open={true} loading={loading} showBtn={false}>
-        <h3 className=" text-2xl mb-4">Connect Wallet</h3>
+        <h3 className=" text-xl mb-4">Connect Wallet</h3>
         {
             loading ? <div className="flex items-center justify-center py-2">
                 <img className="w-16 h-16" src="/images/ui/connect-loading.svg" alt="connect-loading" />

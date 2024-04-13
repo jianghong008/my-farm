@@ -12,7 +12,8 @@ export class CowObject extends Phaser.GameObjects.Sprite{
         this.setInteractive({ cursor: 'pointer',inputEnabled: true }).on('pointerdown',this.pointerdown.bind(this))
     }
     pointerdown(e:Phaser.Input.Pointer) {
-        Channel.Instance.post(e, ChannelMsgType.ClaimFertilizerPopup)
+        e.event.stopPropagation()
+        Channel.Instance.post(e, ChannelMsgType.ClaimManurePopup)
     }
     createAnimation() {
         this.anims.create({

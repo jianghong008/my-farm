@@ -29,4 +29,8 @@ interface UserData {
     address: string
     user: User
     init: boolean
+    consumes: {
+        cow: string
+        tree: string
+    }
 }

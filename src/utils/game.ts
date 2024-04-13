@@ -19,6 +19,10 @@ export class GameContract {
         return JSON.parse(info)
     }
 
+    static async getConsumes(): Promise<string[]> {
+        return await GameContract.contract.getConsumes()
+    }
+
     static async getManure(): Promise<number[]> {
         return await GameContract.contract.getManure()
     }

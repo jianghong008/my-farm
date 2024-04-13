@@ -11,7 +11,7 @@ interface CowProps {
 }
 export function CowPopup(props: CowProps) {
     const { data } = useContext(UserContext)
-    const [fertilizer, setFertilizer] = useState(0)
+    const [manure, setmanure] = useState(0)
     const [cowPopup, setCowPopup] = useState({
         open: false,
         type: 'CLAIM' as CowPopupType
@@ -23,7 +23,7 @@ export function CowPopup(props: CowProps) {
             return
         }
         if (cowPopup.type === 'CLAIM') {
-            await claimFertilizer()
+            await claimmanure()
         } else {
             await feedCow()
         }
@@ -33,8 +33,12 @@ export function CowPopup(props: CowProps) {
         return Wallet.formatBigNumber(data.user.tree.treeClaim)
     }
 
-    const claimFertilizer = async () => {
-        if (fertilizer <= 1) {
+    const getConsumes = () => {
+        return Wallet.formatBigNumber(data.consumes.cow)
+    }
+
+    const claimmanure = async () => {
+        if (manure <= 1) {
             MessageBox.error('no need claim')
             return
         }
@@ -48,7 +52,7 @@ export function CowPopup(props: CowProps) {
             MessageBox.success('claim success')
         } catch (error) {
             setLoading(false)
-            MessageBox.error('claim failed')
+            MessageBox.error(error)
         }
     }
 
@@ -67,17 +71,17 @@ export function CowPopup(props: CowProps) {
             MessageBox.success('feed success')
         } catch (error) {
             setLoading(false)
-            MessageBox.error('feed failed')
+            MessageBox.error(error)
         }
     }
 
-    const showFertilizerPopup = async () => {
+    const showManurePopup = async () => {
         cowPopup.open = true
-        setCowPopup({...cowPopup})
-        getFertilizer()
+        setCowPopup({ ...cowPopup })
+        getmanure()
     }
 
-    const getFertilizer = async () => {
+    const getmanure = async () => {
         const nowTime = Math.floor(Date.now() / 1000)
         const info = data.user
         const workTime = (
@@ -86,32 +90,34 @@ export function CowPopup(props: CowProps) {
                 : GameContract.cowFeeding
         );
         const total = Wallet.formatNumber(workTime *
-            Wallet.formatBigNumber(info.cow.cow, 4),4) +
+            Wallet.formatBigNumber(info.cow.cow, 4), 4) +
             Wallet.formatBigNumber(info.cow.cowStore, 4) - Wallet.formatBigNumber(info.cow.cowClaimLatest, 4)
-        setFertilizer(Wallet.formatNumber(total))
+        setmanure(Wallet.formatNumber(total))
     }
 
     useEffect(() => {
         if (!data.user.cow) {
             return
         }
-        Channel.Instance.onMessage(ChannelMsgType.ClaimFertilizerPopup, showFertilizerPopup)
+        Channel.Instance.onMessage(ChannelMsgType.ClaimManurePopup, showManurePopup)
     }, [])
 
     return <Popup open={cowPopup.open} loading={loading} showBtn={true} close={() => { setCowPopup({ ...cowPopup, open: false }); }} callback={cowCallback}>
-        <h3 className=" text-2xl mb-4 font-bold flex gap-2">
+        <h2 className=" text-2xl font-bold">Cow</h2>
+        <h3 className=" mb-4 flex gap-2">
             <span
                 onClick={() => { setCowPopup({ ...cowPopup, type: 'CLAIM' }) }} className={`com-btn ${cowPopup.type === 'CLAIM' ? 'border-b-2' : ''}`}>Claim</span>
             <span
                 onClick={() => { setCowPopup({ ...cowPopup, type: 'FEED' }) }} className={`com-btn ${cowPopup.type === 'FEED' ? 'border-b-2' : ''}`}>Feed</span>
         </h3>
         {
-            cowPopup.type === 'CLAIM' ? <p className=" text-sm">
-                <span>fers: </span>
-                <span>{fertilizer}</span>
-            </p> : <p className=" text-sm">
-                <span>fruits: </span>
-                <span>{getClaimedFruits()}</span>
+            cowPopup.type === 'CLAIM' ? <p className=" text-sm flex items-center gap-1 justify-center">
+                <img className="w-6 h-6" src="/images/ui/fertilizer.svg" alt="manure" />
+                <span>{manure}</span>
+            </p> : <p className=" text-sm flex items-center gap-1 justify-center">
+                <span>fee:</span>
+                <span>{getConsumes()}</span>
+                <img className="w-4 h-4" src="/images/ui/fruits.svg" alt="fruits" />
             </p>
         }
     </Popup>

@@ -24,8 +24,8 @@ export function Popup(props: Props) {
         props.close && props.close()
     }
     return <div className=" bg-black/50 fixed left-0 top-0 w-full h-full flex items-center justify-center" style={{ display: props.open ? 'flex' : 'none' }} onClick={closePoup}>
-        <div className="com-popup-border bg-[#b96f50] p-4 text-center select-none" onClick={stopHandle}>
-            <div className="my-4">
+        <div className="com-popup-border bg-[#bb8750] p-4 text-center select-none" onClick={stopHandle}>
+            <div className="mb-4 min-w-40 max-w-[90%]">
                 {children}
             </div>
             {

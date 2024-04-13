@@ -1,6 +1,6 @@
 export enum ChannelMsgType {
     ShowToast,
-    ClaimFertilizerPopup,
+    ClaimManurePopup,
     CalimFruitsPopup,
 }
 export class Channel {
