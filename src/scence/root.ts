@@ -94,7 +94,7 @@ export default class RootScene extends Scene {
     createUI() {
         
     }
-    update(_time: number, delta: number): void {
+    update(_time: number, _: number): void {
         if (this.tree) this.tree.update();
         if (this.cow) this.cow.update();
     }
