@@ -1,17 +1,18 @@
 import { Contract, ethers, formatEther } from "ethers"
-import gameBbi from '../assets/abi/game.json'
-import mftBbi from '../assets/abi/mft.json'
+import { httpGet } from "./http"
 export namespace Wallet {
     export function getProvider() {
         return new ethers.BrowserProvider(window.ethereum)
     }
     export const getGameContract = async () => {
         const signer = await getProvider().getSigner()
+        const gameBbi = await httpGet('/my-farm//abi/game.json',true)
         return new Contract(import.meta.env.VITE_GAME_CONTRACT_ADDRESS, gameBbi.output.abi, signer)
     }
 
     export const getMFTContract = async () => {
         const signer = await getProvider().getSigner()
+        const mftBbi = await httpGet('/my-farm//abi/mft.json',true)
         return new Contract(import.meta.env.VITE_MFT_CONTRACT_ADDRESS, mftBbi.output.abi, signer)
     }
 

@@ -8,7 +8,17 @@ export function Connect() {
     const { data, setData } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
     const connect = async () => {
-        const address = await Wallet.connectWallet()
+        if(loading){
+            return
+        }
+        setLoading(true)
+        const address = await Wallet.connectWallet().catch((error) => {
+            setLoading(false)
+            MessageBox.error(error)
+        })
+        if(!address){
+            return
+        }
         data.address = address
         data.isConnect = true
         localStorage.setItem('connectAddress', address)
@@ -19,14 +29,19 @@ export function Connect() {
             has = true
         } catch (error) {
             has = false
+            console.error(error)
+            console.log('user not exist')
         }
         if (has) {
             return
         }
         try {
+            
             await GameContract.newUser()
             await loadInfo()
         } catch (error) {
+            console.error(error)
+            setLoading(false)
             MessageBox.error(error)
             disConnect()
         }
@@ -53,12 +68,13 @@ export function Connect() {
 
     const init = async () => {
         try {
+            setLoading(true)
             await GameContract.loadContract()
             await loadInfo()
         } catch (error) {
             MessageBox.error(error)
             disConnect()
-            console.log(121)
+            setLoading(false)
         }
     }
 
@@ -66,7 +82,6 @@ export function Connect() {
         if (data.isConnect) {
             return
         }
-
         const address = localStorage.getItem('connectAddress')
         if (address) {
             data.address = address
