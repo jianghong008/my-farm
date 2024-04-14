@@ -85,8 +85,8 @@ export default class RootScene extends Scene {
         this.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
             if(pointer.isDown){
                 this.game.canvas.style.cursor = 'grabbing'
-                this.cameras.main.scrollX -= (pointer.x - pointerData.x)/100;
-                this.cameras.main.scrollY -= (pointer.y - pointerData.y)/100;
+                this.cameras.main.scrollX -= (pointer.x - pointerData.x)/50;
+                this.cameras.main.scrollY -= (pointer.y - pointerData.y)/50;
             }
         })
     }
