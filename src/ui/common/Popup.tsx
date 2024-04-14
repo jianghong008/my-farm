@@ -31,7 +31,7 @@ export function Popup(props: Props) {
             {
                 props.showBtn && <div className="com-btn com-btn-border flex items-center justify-center gap-2 w-full py-2 bg-[#f3955a]" onClick={callback}>
                     {
-                        props.loading && <img className="w-4 h-4" src="/images/ui/connect-loading.svg" alt="connect-loading" />
+                        props.loading && <img className="w-4 h-4" src="/my-farm/images/ui/connect-loading.svg" alt="connect-loading" />
                     }
                     <span>Comfirm</span>
                 </div>

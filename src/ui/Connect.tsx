@@ -79,9 +79,9 @@ export function Connect() {
         <h3 className=" text-xl mb-4">Connect Wallet</h3>
         {
             loading ? <div className="flex items-center justify-center py-2">
-                <img className="w-16 h-16" src="/images/ui/connect-loading.svg" alt="connect-loading" />
+                <img className="w-16 h-16" src="/my-farm/images/ui/connect-loading.svg" alt="connect-loading" />
             </div> : <p className="flex items-center gap-2 text-center justify-center cursor-pointer py-2 hover:bg-[#7a542c]" onClick={connect}>
-                <img src="/images/ui/metamask.svg" className="w-6 h-6" />
+                <img src="/my-farm/images/ui/metamask.svg" className="w-6 h-6" />
                 <span className="text-white">MetaMask</span>
             </p>
         }

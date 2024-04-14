@@ -112,12 +112,12 @@ export function CowPopup(props: CowProps) {
         </h3>
         {
             cowPopup.type === 'CLAIM' ? <p className=" text-sm flex items-center gap-1 justify-center">
-                <img className="w-6 h-6" src="/images/ui/fertilizer.svg" alt="manure" />
+                <img className="w-6 h-6" src="/my-farm/images/ui/fertilizer.svg" alt="manure" />
                 <span>{manure}</span>
             </p> : <p className=" text-sm flex items-center gap-1 justify-center">
                 <span>fee:</span>
                 <span>{getConsumes()}</span>
-                <img className="w-4 h-4" src="/images/ui/fruits.svg" alt="fruits" />
+                <img className="w-4 h-4" src="/my-farm/images/ui/fruits.svg" alt="fruits" />
             </p>
         }
     </Popup>

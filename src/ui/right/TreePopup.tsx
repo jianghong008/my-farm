@@ -113,12 +113,12 @@ export function TreePopup(props: CowProps) {
         </h3>
         {
             treePopup.type === 'CLAIM' ? <p className=" text-sm flex items-center gap-1 justify-center">
-                <img className="w-4 h-4" src="/images/ui/fruits.svg" alt="fertilizer" />
+                <img className="w-4 h-4" src="/my-farm/images/ui/fruits.svg" alt="fertilizer" />
                 <span>{fruits}</span>
             </p> : <p className=" text-sm flex items-center gap-1 justify-center">
                 <span>fee:</span>
                 <span>{getConsumes()}</span>
-                <img className="w-6 h-6" src="/images/ui/fertilizer.svg" alt="fertilizer" />
+                <img className="w-6 h-6" src="/my-farm/images/ui/fertilizer.svg" alt="fertilizer" />
             </p>
         }
     </Popup>

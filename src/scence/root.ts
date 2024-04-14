@@ -12,12 +12,12 @@ export default class RootScene extends Scene {
         super({ key: 'root-scence'});
     }
     async preload() {
-        this.load.tilemapTiledJSON('bg-farm', '/images/bg-farm.tmj')
-        this.load.image('ground', '/images/Hills.png')
-        this.load.image('objs', '/images/objs.png')
-        this.load.image('tree', '/images/tree.png')
-        this.load.image('fences', '/images/fences.png')
-        this.load.spritesheet('cow', '/images/cow.png', {
+        this.load.tilemapTiledJSON('bg-farm', '/my-farm/images/bg-farm.tmj')
+        this.load.image('ground', '/my-farm/images/Hills.png')
+        this.load.image('objs', '/my-farm/images/objs.png')
+        this.load.image('tree', '/my-farm/images/tree.png')
+        this.load.image('fences', '/my-farm/images/fences.png')
+        this.load.spritesheet('cow', '/my-farm/images/cow.png', {
             frameWidth: 32,
             frameHeight: 32
         })
